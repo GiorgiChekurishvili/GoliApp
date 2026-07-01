@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.goliapp.domain.model.League
 import com.example.goliapp.domain.model.Match
 import com.example.goliapp.repository.FavouritesRepository
-import com.example.goliapp.repository.FootballRepository
 import com.example.goliapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
