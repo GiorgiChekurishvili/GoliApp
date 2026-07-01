@@ -65,4 +65,5 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.glide)
+    implementation(libs.androidx.swiperefreshlayout)
 }
