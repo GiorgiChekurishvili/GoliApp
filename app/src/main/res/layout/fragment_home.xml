@@ -45,7 +45,7 @@
                     android:textColor="#B8D4C8"
                     android:textSize="13sp" />
 
-                <!-- League filter chips -->
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_leagues"
                     android:layout_width="match_parent"

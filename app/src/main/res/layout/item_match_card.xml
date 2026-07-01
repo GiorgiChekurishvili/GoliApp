@@ -13,7 +13,7 @@
     android:foreground="?attr/selectableItemBackground"
     android:padding="16dp">
 
-    <!-- League name chip top-left -->
+
     <TextView
         android:id="@+id/tv_league_name"
         android:layout_width="0dp"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Live badge (visible only for live matches) -->
+
     <LinearLayout
         android:id="@+id/badge_live"
         android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:textSize="11sp" />
     </LinearLayout>
 
-    <!-- Status text for non-live matches (e.g. FT, 18:00) -->
+
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Home team row -->
+
     <ImageView
         android:id="@+id/iv_home_logo"
         android:layout_width="28dp"
@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_home_logo" />
 
-    <!-- Gold divider -->
+
     <View
         android:id="@+id/divider_gold"
         android:layout_width="0dp"
@@ -122,7 +122,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_home_logo" />
 
-    <!-- Away team row -->
+
     <ImageView
         android:id="@+id/iv_away_logo"
         android:layout_width="28dp"
@@ -160,7 +160,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_away_logo" />
 
-    <!-- Favourite star -->
+
     <ImageButton
         android:id="@+id/btn_favourite"
         android:layout_width="32dp"
