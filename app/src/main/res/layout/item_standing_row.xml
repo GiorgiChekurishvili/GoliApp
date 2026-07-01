@@ -8,7 +8,7 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="12dp">
 
-    <!-- Position number with qualification color bar -->
+
     <View
         android:id="@+id/view_position_bar"
         android:layout_width="3dp"
