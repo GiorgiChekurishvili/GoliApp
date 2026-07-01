@@ -1,9 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.GoliApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <style name="Theme.GoliApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/pitch_green</item>
+        <item name="colorPrimaryVariant">@color/pitch_green_light</item>
+        <item name="colorOnPrimary">@color/off_white</item>
+        <item name="colorSecondary">@color/gold</item>
+        <item name="colorOnSecondary">@color/charcoal</item>
+        <item name="android:windowBackground">@color/off_white</item>
+        <item name="android:statusBarColor">@color/pitch_green</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">@color/pitch_green</item>
     </style>
 
-    <style name="Theme.GoliApp" parent="Base.Theme.GoliApp" />
+    <!-- Text styles -->
+    <style name="Text.ScoreboardNumber">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/off_white</item>
+    </style>
+
+    <style name="Text.SectionTitle">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/charcoal</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="Text.TeamName">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/charcoal</item>
+    </style>
+
+    <style name="Text.Caption">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_text</item>
+    </style>
+
+    <!-- Bottom nav -->
+    <style name="Widget.GoliApp.BottomNav" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:background">@color/pitch_green</item>
+        <item name="itemIconTint">@color/bottom_nav_tint</item>
+        <item name="itemTextColor">@color/bottom_nav_tint</item>
+    </style>
 </resources>

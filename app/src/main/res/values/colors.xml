@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="pitch_green">#0B3D2E</color>
+    <color name="pitch_green_light">#145C45</color>
+    <color name="gold">#D4A537</color>
+    <color name="gold_light">#E8C766</color>
+
+    <color name="off_white">#F7F5EF</color>
+    <color name="charcoal">#1A1A1A</color>
+    <color name="gray_text">#6B6B68</color>
+    <color name="gray_border">#E2DFD5</color>
+    <color name="card_bg">#FFFFFF</color>
+
+    <color name="live_red">#E63946</color>
+    <color name="win_green">#2D9D6F</color>
+    <color name="loss_red">#C84B4B</color>
+    <color name="draw_gray">#9A968C</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="overlay">#80000000</color>
 </resources>
