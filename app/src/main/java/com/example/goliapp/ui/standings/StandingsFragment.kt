@@ -43,10 +43,10 @@ class StandingsFragment : Fragment() {
             when (result) {
                 is Resource.Success -> {
                     standingsAdapter.submitList(result.data)
-                    binding.emptyState.root.visibility =
+                    binding.root.visibility =
                         if (result.data.isNullOrEmpty()) View.VISIBLE else View.GONE
                 }
-                is Resource.Error -> binding.emptyState.root.visibility = View.VISIBLE
+                is Resource.Error -> binding.root.visibility = View.VISIBLE
                 is Resource.Loading -> Unit
             }
         }

@@ -12,6 +12,7 @@ import com.example.goliapp.databinding.FragmentFavouritesBinding
 import com.example.goliapp.ui.home.MatchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class FavouritesFragment : Fragment() {
 
@@ -46,7 +47,7 @@ class FavouritesFragment : Fragment() {
 
         viewModel.favourites.observe(viewLifecycleOwner) { list ->
             favouritesAdapter.submitList(list)
-            binding.emptyState.root.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+            binding.layoutEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
             binding.rvFavourites.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
         }
     }

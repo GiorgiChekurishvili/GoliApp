@@ -13,7 +13,10 @@
         <item name="android:navigationBarColor">@color/pitch_green</item>
     </style>
 
-    <!-- Text styles -->
+    <style name="Text">
+        <item name="android:textColor">@color/charcoal</item>
+    </style>
+
     <style name="Text.ScoreboardNumber">
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textStyle">bold</item>
@@ -40,7 +43,6 @@
         <item name="android:textColor">@color/gray_text</item>
     </style>
 
-    <!-- Bottom nav -->
     <style name="Widget.GoliApp.BottomNav" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="android:background">@color/pitch_green</item>
         <item name="itemIconTint">@color/bottom_nav_tint</item>
