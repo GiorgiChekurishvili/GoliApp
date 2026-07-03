@@ -45,7 +45,7 @@
 
     <TextView
         android:id="@+id/tv_team_name"
-        style="@style/Text.TeamName"
+        style="@style/TextTeamName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.goliapp.domain.model.League
 import com.example.goliapp.domain.model.Match
 import com.example.goliapp.repository.FavouritesRepository
+import com.example.goliapp.repository.FootballRepository
 import com.example.goliapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -56,7 +58,7 @@ class HomeViewModel @Inject constructor(
 
     fun toggleFavouriteQuick(match: Match) {
         viewModelScope.launch {
-            if (favouritesRepository.isFavourite(match.id)) {
+            if (favouritesRepository.isFavourite(match.id).first()) {
                 favouritesRepository.removeFavourite(match.id)
             } else {
                 favouritesRepository.addFavourite(match)

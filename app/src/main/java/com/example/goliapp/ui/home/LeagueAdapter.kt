@@ -39,9 +39,9 @@ class LeagueAdapter(
         fun bind(league: League) {
             binding.apply {
                 tvLeagueChipName.text = league.name
-                Glide.with(ivLeagueChipLogo.context)
+                Glide.with(ivLeagueLogo.context)
                     .load(league.logo)
-                    .into(ivLeagueChipLogo)
+                    .into(ivLeagueLogo)
 
                 root.isSelected = league.id == selectedId
                 root.setOnClickListener {
@@ -60,5 +60,4 @@ class LeagueAdapter(
                 oldItem == newItem
         }
     }
-}
 }

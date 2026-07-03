@@ -91,4 +91,8 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    fun refreshFromMenu() {
+        viewModel.refresh()
+    }
 }

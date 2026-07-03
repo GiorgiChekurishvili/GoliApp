@@ -1,13 +1,15 @@
 package com.example.goliapp.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.goliapp.databinding.ItemMatchBinding
+import com.example.goliapp.databinding.ItemMatchCardBinding
 import com.example.goliapp.domain.model.Match
+import com.example.goliapp.utils.toMatchTime
 
 class MatchAdapter(
     private val onMatchClick: (Match) -> Unit,
@@ -15,7 +17,7 @@ class MatchAdapter(
 ) : ListAdapter<Match, MatchAdapter.MatchViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
-        val binding = ItemMatchBinding.inflate(
+        val binding = ItemMatchCardBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return MatchViewHolder(binding)
@@ -25,28 +27,37 @@ class MatchAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class MatchViewHolder(private val binding: ItemMatchBinding) :
+    inner class MatchViewHolder(private val binding: ItemMatchCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(match: Match) {
             binding.apply {
-                tvHomeTeam.text = match.homeTeamName
-                tvAwayTeam.text = match.awayTeamName
+                tvHomeName.text = match.homeTeamName
+                tvAwayName.text = match.awayTeamName
                 tvLeagueName.text = match.leagueName
-                tvMatchStatus.text = match.status
 
-                if (match.status.equals("LIVE", ignoreCase = true) ||
-                    match.status.equals("1H", ignoreCase = true) ||
-                    match.status.equals("2H", ignoreCase = true)
-                ) {
-                    liveDot.visibility = android.view.View.VISIBLE
-                    tvScore.text = "${match.homeScore ?: 0} - ${match.awayScore ?: 0}"
-                } else if (match.status.equals("FT", ignoreCase = true)) {
-                    liveDot.visibility = android.view.View.GONE
-                    tvScore.text = "${match.homeScore ?: 0} - ${match.awayScore ?: 0}"
-                } else {
-                    liveDot.visibility = android.view.View.GONE
-                    tvScore.text = match.date.takeLast(5) // HH:mm
+                when {
+                    match.isLive -> {
+                        badgeLive.visibility = View.VISIBLE
+                        tvStatus.visibility = View.GONE
+                        tvLiveMinute.text = match.elapsed?.let { "${it}'" } ?: "LIVE"
+                        tvHomeScore.text = match.homeGoals?.toString() ?: "-"
+                        tvAwayScore.text = match.awayGoals?.toString() ?: "-"
+                    }
+                    match.isFinished -> {
+                        badgeLive.visibility = View.GONE
+                        tvStatus.visibility = View.VISIBLE
+                        tvStatus.text = match.statusShort
+                        tvHomeScore.text = match.homeGoals?.toString() ?: "0"
+                        tvAwayScore.text = match.awayGoals?.toString() ?: "0"
+                    }
+                    else -> {
+                        badgeLive.visibility = View.GONE
+                        tvStatus.visibility = View.VISIBLE
+                        tvStatus.text = match.date.toMatchTime()
+                        tvHomeScore.text = "-"
+                        tvAwayScore.text = "-"
+                    }
                 }
 
                 Glide.with(ivHomeLogo.context)

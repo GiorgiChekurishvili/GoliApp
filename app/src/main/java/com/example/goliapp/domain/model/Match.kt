@@ -9,7 +9,7 @@ data class Match(
     val leagueId: Int,
     val leagueName: String,
     val leagueLogo: String,
-    val round: String,
+    val round: String?,
     val homeTeamId: Int,
     val homeTeamName: String,
     val homeTeamLogo: String,
@@ -18,7 +18,8 @@ data class Match(
     val awayTeamLogo: String,
     val homeGoals: Int?,
     val awayGoals: Int?,
-    val season: Int
+    val season: Int,
+    val isFavourite: Boolean = false
 ) {
     val isFinished get() = statusShort == "FT" || statusShort == "AET" || statusShort == "PEN"
     val isLive get() = statusShort == "1H" || statusShort == "HT" || statusShort == "2H" || statusShort == "ET" || statusShort == "P"

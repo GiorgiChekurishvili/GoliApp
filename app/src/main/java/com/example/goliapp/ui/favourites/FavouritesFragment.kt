@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.goliapp.R
 import com.example.goliapp.databinding.FragmentFavouritesBinding
 import com.example.goliapp.ui.home.MatchAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +48,8 @@ class FavouritesFragment : Fragment() {
         viewModel.favourites.observe(viewLifecycleOwner) { list ->
             favouritesAdapter.submitList(list)
             binding.emptyState.root.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+            binding.emptyState.tvEmptyTitle.text = getString(R.string.no_favourites)
+            binding.emptyState.tvEmptySubtitle.text = getString(R.string.no_favourites_subtitle)
             binding.rvFavourites.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
         }
     }

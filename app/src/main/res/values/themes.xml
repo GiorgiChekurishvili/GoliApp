@@ -14,13 +14,13 @@
     </style>
 
     <!-- Text styles -->
-    <style name="Text.ScoreboardNumber">
+    <style name="TextScoreboardNumber">
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/off_white</item>
     </style>
 
-    <style name="Text.SectionTitle">
+    <style name="TextSectionTitle">
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">22sp</item>
@@ -28,13 +28,13 @@
         <item name="android:letterSpacing">0.01</item>
     </style>
 
-    <style name="Text.TeamName">
+    <style name="TextTeamName">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/charcoal</item>
     </style>
 
-    <style name="Text.Caption">
+    <style name="TextCaption">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/gray_text</item>
