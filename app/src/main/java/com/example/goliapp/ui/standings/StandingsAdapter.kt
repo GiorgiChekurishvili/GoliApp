@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.goliapp.databinding.ItemStandingBinding
+import com.example.goliapp.databinding.ItemStandingRowBinding
 import com.example.goliapp.domain.model.Standing
 
 class StandingsAdapter : ListAdapter<Standing, StandingsAdapter.StandingViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StandingViewHolder {
-        val binding = ItemStandingBinding.inflate(
+        val binding = ItemStandingRowBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return StandingViewHolder(binding)
@@ -22,7 +22,7 @@ class StandingsAdapter : ListAdapter<Standing, StandingsAdapter.StandingViewHold
         holder.bind(getItem(position))
     }
 
-    inner class StandingViewHolder(private val binding: ItemStandingBinding) :
+    inner class StandingViewHolder(private val binding: ItemStandingRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(standing: Standing) {
@@ -30,7 +30,7 @@ class StandingsAdapter : ListAdapter<Standing, StandingsAdapter.StandingViewHold
                 tvRank.text = standing.rank.toString()
                 tvTeamName.text = standing.teamName
                 tvPlayed.text = standing.played.toString()
-                tvGoalDiff.text = if (standing.goalsDiff >= 0) "+${standing.goalsDiff}" else "${standing.goalsDiff}"
+                tvGoalDiff.text = if (standing.goalDifference >= 0) "+${standing.goalDifference}" else "${standing.goalDifference}"
                 tvPoints.text = standing.points.toString()
 
                 Glide.with(ivTeamLogo.context)

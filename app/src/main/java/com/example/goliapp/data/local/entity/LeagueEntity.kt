@@ -13,17 +13,5 @@ data class LeagueEntity(
     val logoUrl: String,
     val countryName: String,
     val countryCode: String?,
-    val countryFlagUrl: String?
+    val countryFlagUrl: String?,
 )
-
-fun LeagueEntity.toLeague(): LeagueEntity {
-    return LeagueEntity(
-        id = this.id,
-        name = this.name,
-        type = this.type,
-        logoUrl = this.logoUrl,
-        countryName = this.countryName,
-        countryCode = this.countryCode,
-        countryFlagUrl = this.countryFlagUrl
-    )
-}

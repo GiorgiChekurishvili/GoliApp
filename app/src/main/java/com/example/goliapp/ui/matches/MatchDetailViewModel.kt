@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.goliapp.domain.model.Match
 import com.example.goliapp.repository.FavouritesRepository
+import com.example.goliapp.repository.FootballRepository
 import com.example.goliapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -43,7 +44,7 @@ class MatchDetailViewModel @Inject constructor(
 
     private fun checkFavouriteStatus() {
         viewModelScope.launch {
-            _isFavourite.value = favouritesRepository.isFavourite(matchId)
+            _isFavourite.value = favouritesRepository.isFavourite(matchId) as Boolean?
         }
     }
 

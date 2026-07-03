@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.goliapp.data.local.AppDatabase
 import com.example.goliapp.data.local.dao.FavouriteDao
+import com.example.goliapp.data.local.dao.FootballDao
 import com.example.goliapp.data.local.dao.MatchDao
 import com.example.goliapp.utils.Constants
 import dagger.Module
@@ -28,6 +29,9 @@ object DatabaseModule {
 
     @Provides
     fun provideMatchDao(db: AppDatabase): MatchDao = db.matchDao()
+
+    @Provides
+    fun provideFootballDao(db: AppDatabase) : FootballDao = db.footballDao()
 
     @Provides
     fun provideFavouriteDao(db: AppDatabase): FavouriteDao = db.favouriteDao()

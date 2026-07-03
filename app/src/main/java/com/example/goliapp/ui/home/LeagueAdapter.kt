@@ -10,10 +10,37 @@ import com.example.goliapp.databinding.ItemLeagueChipBinding
 import com.example.goliapp.domain.model.League
 
 class LeagueAdapter(
-    private val onLeagueClick: (League?) -> Unit
-) : ListAdapter<League, LeagueAdapter.LeagueViewHolder>(DIFF_CALLBACK) {
+    private val onLeagueClick: (League) -> Unit
+) : ListAdapter<League, LeagueAdapter.LeagueViewHolder>(DiffCallback()) {
 
-    private var selectedId: Int? = null
+    private var selectedId: Int = 0
+
+    fun setSelected(id: Int) {
+        selectedId = id
+        notifyDataSetChanged()
+    }
+
+    inner class LeagueViewHolder(
+        private val binding: ItemLeagueChipBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(league: League) {
+            binding.tvLeagueChipName.text = league.name
+
+            if (league.logo.isNotEmpty()) {
+                Glide.with(binding.root)
+                    .load(league.logo)
+                    .into(binding.ivLeagueLogo)
+            }
+
+            val isSelected = league.id == selectedId
+            binding.root.alpha = if (isSelected) 1f else 0.6f
+
+            binding.root.setOnClickListener {
+                onLeagueClick(league)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeagueViewHolder {
         val binding = ItemLeagueChipBinding.inflate(
@@ -26,39 +53,8 @@ class LeagueAdapter(
         holder.bind(getItem(position))
     }
 
-    fun setSelected(leagueId: Int?) {
-        val previous = selectedId
-        selectedId = leagueId
-        notifyItemChanged(currentList.indexOfFirst { it.id == previous })
-        notifyItemChanged(currentList.indexOfFirst { it.id == leagueId })
+    class DiffCallback : DiffUtil.ItemCallback<League>() {
+        override fun areItemsTheSame(oldItem: League, newItem: League) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: League, newItem: League) = oldItem == newItem
     }
-
-    inner class LeagueViewHolder(private val binding: ItemLeagueChipBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(league: League) {
-            binding.apply {
-                tvLeagueChipName.text = league.name
-                Glide.with(ivLeagueChipLogo.context)
-                    .load(league.logo)
-                    .into(ivLeagueChipLogo)
-
-                root.isSelected = league.id == selectedId
-                root.setOnClickListener {
-                    onLeagueClick(if (league.id == selectedId) null else league)
-                }
-            }
-        }
-    }
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<League>() {
-            override fun areItemsTheSame(oldItem: League, newItem: League) =
-                oldItem.id == newItem.id
-
-            override fun areContentsTheSame(oldItem: League, newItem: League) =
-                oldItem == newItem
-        }
-    }
-}
 }

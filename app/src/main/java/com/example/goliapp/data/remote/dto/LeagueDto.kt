@@ -1,5 +1,6 @@
 package com.example.goliapp.data.remote.dto
 
+import com.example.goliapp.domain.model.League
 import com.google.gson.annotations.SerializedName
 
 data class LeagueResponseDto(
