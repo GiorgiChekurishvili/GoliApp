@@ -1,3 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GoliApp</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_standings">Table</string>
+    <string name="nav_favourites">Favourites</string>
+
+    <string name="todays_matches">Today\'s Matches</string>
+    <string name="live_now">Live Now</string>
+    <string name="no_matches_today">No matches scheduled today</string>
+    <string name="no_matches_subtitle">Check back tomorrow for the next round of fixtures</string>
+
+    <string name="match_details">Match Details</string>
+    <string name="status">Status</string>
+    <string name="round">Round</string>
+    <string name="venue">Venue</string>
+
+    <string name="league_table">League Table</string>
+    <string name="select_league">Select a league</string>
+    <string name="col_position">#</string>
+    <string name="col_team">Team</string>
+    <string name="col_played">P</string>
+    <string name="col_won">W</string>
+    <string name="col_drawn">D</string>
+    <string name="col_lost">L</string>
+    <string name="col_goal_diff">GD</string>
+    <string name="col_points">Pts</string>
+
+    <string name="my_favourites">My Favourites</string>
+    <string name="no_favourites">No favourites yet</string>
+    <string name="no_favourites_subtitle">Tap the star on any match to save it here</string>
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="remove_from_favourites">Remove from favourites</string>
+
+    <string name="error_loading">Couldn\'t load matches</string>
+    <string name="retry">Retry</string>
+    <string name="no_internet">No internet connection — showing saved matches</string>
+    <string name="loading">Loading…</string>
+
+    <string name="vs">vs</string>
+    <string name="full_time">Full Time</string>
+    <string name="not_started">Not Started</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
