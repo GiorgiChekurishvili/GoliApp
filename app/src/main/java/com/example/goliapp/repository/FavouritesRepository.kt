@@ -16,6 +16,7 @@ class FavouritesRepository @Inject constructor(
             entities.map { it.toMatch() }
         }
 
+
     fun isFavourite(matchId: Int): Flow<Boolean> =
         favouriteDao.isFavourite(matchId)
 
