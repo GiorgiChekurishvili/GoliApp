@@ -13,5 +13,5 @@ data class LeagueEntity(
     val logoUrl: String,
     val countryName: String,
     val countryCode: String?,
-    val countryFlagUrl: String?,
+    val countryFlagUrl: String?
 )

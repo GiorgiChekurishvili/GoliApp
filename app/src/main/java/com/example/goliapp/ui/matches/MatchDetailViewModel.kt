@@ -10,6 +10,7 @@ import com.example.goliapp.repository.FavouritesRepository
 import com.example.goliapp.repository.FootballRepository
 import com.example.goliapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -22,7 +23,6 @@ class MatchDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    // "matchId" must match the nav_graph argument name for match_detail destination
     private val matchId: Int = savedStateHandle.get<Int>("matchId") ?: -1
 
     private val _match = MutableLiveData<Resource<Match>>()
@@ -44,7 +44,7 @@ class MatchDetailViewModel @Inject constructor(
 
     private fun checkFavouriteStatus() {
         viewModelScope.launch {
-            _isFavourite.value = favouritesRepository.isFavourite(matchId) as Boolean?
+            _isFavourite.value = favouritesRepository.isFavourite(matchId).first()
         }
     }
 

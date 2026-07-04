@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.goliapp.R
 import com.example.goliapp.databinding.FragmentMatchDetailBinding
 import com.example.goliapp.utils.Resource
+import com.example.goliapp.utils.toReadableDate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,56 +32,64 @@ class MatchDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // უკან დაბრუნების ღილაკი (XML-ში გაქვს btn_back)
         binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
 
         viewModel.match.observe(viewLifecycleOwner) { result ->
-            // თუ XML-ში დაამატებ ProgressBar-ს ID-ით progressBar, ეს ხაზი ჩართე:
-            // binding.progressBar.visibility = if (result is Resource.Loading) View.VISIBLE else View.GONE
+            binding.progressBar.visibility =
+                if (result is Resource.Loading) View.VISIBLE else View.GONE
 
             if (result is Resource.Success && result.data != null) {
-                val match = result.data
-                binding.apply {
-                    // 1. გუნდების სახელები (შენს Match.kt-ში არის homeTeamName და awayTeamName)
-                    tvHomeName.text = match.homeTeamName
-                    tvAwayName.text = match.awayTeamName
-
-                    // 2. ანგარიში (ვიყენებთ Match.kt-ში არსებულ scoreDisplay-ს ან ხელით ვაწყობთ)
-                    tvScore.text = match.scoreDisplay
-
-                    // 3. ლიგა და სტატუსი (შენს Match.kt-ში არის leagueName და statusLong)
-                    tvLeague.text = match.leagueName
-                    tvStatus.text = match.statusLong
-
-                    // 4. Match Info სექცია
-                    tvMatchDate.text = match.date
-                    tvMatchStatus.text = match.statusLong
-                    // tvMatchRound.text = match.round // თუ XML-ში tv_match_round ბოლომდე გიწერია
-
-                    // 5. სურათების ჩატვირთვა (Match.kt-ში არის homeTeamLogo და awayTeamLogo)
-                    Glide.with(ivHomeLogo.context)
-                        .load(match.homeTeamLogo)
-                        .placeholder(R.drawable.ic_launcher_background)
-                        .into(ivHomeLogo)
-
-                    Glide.with(ivAwayLogo.context)
-                        .load(match.awayTeamLogo)
-                        .placeholder(R.drawable.ic_launcher_background)
-                        .into(ivAwayLogo)
-                }
+                bindMatch(result.data)
             }
         }
 
         viewModel.isFavourite.observe(viewLifecycleOwner) { isFav ->
-            // შეამოწმე რომ drawable-ებში ic_star_filled და ic_star_outline გაქვს
             binding.btnFavourite.setImageResource(
                 if (isFav) R.drawable.ic_star_filled else R.drawable.ic_star_outline
             )
         }
 
         binding.btnFavourite.setOnClickListener { viewModel.toggleFavourite() }
+    }
+
+    private fun bindMatch(match: com.example.goliapp.domain.model.Match) {
+        binding.apply {
+            tvHomeName.text = match.homeTeamName
+            tvAwayName.text = match.awayTeamName
+            tvScore.text = match.scoreDisplay
+            tvLeague.text = "${match.leagueName} · ${match.round}"
+            tvMatchLeague.text = match.leagueName
+            tvMatchRound.text = match.round
+            tvMatchDate.text = match.date.toReadableDate()
+            tvMatchStatus.text = match.statusLong
+
+            if (match.isLive) {
+                badgeLive.visibility = View.VISIBLE
+                tvStatus.visibility = View.GONE
+                tvLiveMinute.text = match.elapsed?.let { "LIVE · ${it}'" } ?: "LIVE"
+            } else {
+                badgeLive.visibility = View.GONE
+                tvStatus.visibility = View.VISIBLE
+                tvStatus.text = match.statusLong
+            }
+
+            if (match.isFinished && match.homeGoals != null && match.awayGoals != null) {
+                tvFtHome.text = match.homeGoals.toString()
+                tvFtAway.text = match.awayGoals.toString()
+                tvHtHome.text = "-"
+                tvHtAway.text = "-"
+            } else {
+                tvFtHome.text = "-"
+                tvFtAway.text = "-"
+                tvHtHome.text = "-"
+                tvHtAway.text = "-"
+            }
+
+            Glide.with(ivHomeLogo.context).load(match.homeTeamLogo).into(ivHomeLogo)
+            Glide.with(ivAwayLogo.context).load(match.awayTeamLogo).into(ivAwayLogo)
+        }
     }
 
     override fun onDestroyView() {

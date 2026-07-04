@@ -19,7 +19,12 @@
         android:id="@+id/standingsFragment"
         android:name="com.example.goliapp.ui.standings.StandingsFragment"
         android:label="Table"
-        tools:layout="@layout/fragment_standings" />
+        tools:layout="@layout/fragment_standings">
+        <argument
+            android:name="leagueId"
+            app:argType="integer"
+            android:defaultValue="39"/>
+    </fragment>
 
     <fragment
         android:id="@+id/favouritesFragment"

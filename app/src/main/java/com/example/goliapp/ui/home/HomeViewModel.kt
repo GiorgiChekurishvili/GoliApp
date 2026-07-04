@@ -1,61 +1,67 @@
 package com.example.goliapp.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.goliapp.domain.model.League
 import com.example.goliapp.domain.model.Match
-import com.example.goliapp.repository.MatchRepository
-import com.example.goliapp.repository.StandingsRepository
-import com.example.goliapp.utils.Constants
+import com.example.goliapp.repository.FavouritesRepository
+import com.example.goliapp.repository.FootballRepository
 import com.example.goliapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val matchRepository: MatchRepository
+    private val repository: FootballRepository,
+    private val favouritesRepository: FavouritesRepository
 ) : ViewModel() {
 
-    private val _matches = MutableStateFlow<Resource<List<Match>>>(Resource.Loading)
-    val matches: StateFlow<Resource<List<Match>>> = _matches
+    private val _matches = MutableLiveData<Resource<List<Match>>>()
+    val matches: LiveData<Resource<List<Match>>> = _matches
 
-    private val _selectedLeagueId = MutableStateFlow<Int?>(null)
-    val selectedLeagueId: StateFlow<Int?> = _selectedLeagueId
+    private val _leagues = MutableLiveData<Resource<List<League>>>()
+    val leagues: LiveData<Resource<List<League>>> = _leagues
 
-    val leagues = listOf(
-        League(0, "All", "", "", null, Constants.CURRENT_SEASON),
-        League(Constants.PREMIER_LEAGUE_ID, "Premier League", "", "England", null, Constants.CURRENT_SEASON),
-        League(Constants.LA_LIGA_ID, "La Liga", "", "Spain", null, Constants.CURRENT_SEASON),
-        League(Constants.SERIE_A_ID, "Serie A", "", "Italy", null, Constants.CURRENT_SEASON),
-        League(Constants.BUNDESLIGA_ID, "Bundesliga", "", "Germany", null, Constants.CURRENT_SEASON),
-        League(Constants.LIGUE_1_ID, "Ligue 1", "", "France", null, Constants.CURRENT_SEASON),
-        League(Constants.CHAMPIONS_LEAGUE_ID, "UCL", "", "Europe", null, Constants.CURRENT_SEASON),
-    )
+    private var selectedLeagueId: Int? = null
 
     init {
         loadTodayMatches()
+        loadLeagues()
     }
 
     fun loadTodayMatches() {
-        viewModelScope.launch {
-            matchRepository.getTodayMatches().collect { result ->
-                _matches.value = result
-            }
-        }
+        repository.getTodayMatches(selectedLeagueId)
+            .onEach { result -> _matches.value = result }
+            .launchIn(viewModelScope)
     }
 
-    fun selectLeague(leagueId: Int?) {
-        _selectedLeagueId.value = leagueId
-        if (leagueId == null || leagueId == 0) {
-            loadTodayMatches()
-        } else {
-            viewModelScope.launch {
-                matchRepository.getMatchesByLeague(leagueId).collect { result ->
-                    _matches.value = result
-                }
+    fun loadLeagues() {
+        repository.getLeagues()
+            .onEach { result -> _leagues.value = result }
+            .launchIn(viewModelScope)
+    }
+
+    fun onLeagueSelected(leagueId: Int?) {
+        selectedLeagueId = leagueId
+        loadTodayMatches()
+    }
+
+    fun refresh() {
+        loadTodayMatches()
+    }
+
+    fun toggleFavouriteQuick(match: Match) {
+        viewModelScope.launch {
+            if (favouritesRepository.isFavourite(match.id).first()) {
+                favouritesRepository.removeFavourite(match.id)
+            } else {
+                favouritesRepository.addFavourite(match)
             }
         }
     }

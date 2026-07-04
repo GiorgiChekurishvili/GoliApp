@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_match"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -81,11 +82,11 @@
         android:contentDescription="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_league_name"
-        />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv_home_name"
-        style="@style/Text.ScoreboardNumber"
+        style="@style/TextScoreboardNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -101,7 +102,7 @@
 
     <TextView
         android:id="@+id/tv_home_score"
-        style="@style/Text.ScoreboardNumber"
+        style="@style/TextScoreboardNumber"
         android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="end"
@@ -134,7 +135,7 @@
 
     <TextView
         android:id="@+id/tv_away_name"
-        style="@style/Text.ScoreboardNumber"
+        style="@style/TextScoreboardNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -150,7 +151,7 @@
 
     <TextView
         android:id="@+id/tv_away_score"
-        style="@style/Text.ScoreboardNumber"
+        style="@style/TextScoreboardNumber"
         android:layout_width="28dp"
         android:layout_height="wrap_content"
         android:gravity="end"

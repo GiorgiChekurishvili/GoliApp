@@ -2,7 +2,6 @@ package com.example.goliapp.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.goliapp.domain.model.Match
 
 @Entity(tableName = "matches")
 data class MatchEntity(
@@ -25,4 +24,3 @@ data class MatchEntity(
     val awayGoals: Int?,
     val season: Int
 )
-

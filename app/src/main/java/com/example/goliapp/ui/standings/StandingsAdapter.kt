@@ -2,10 +2,12 @@ package com.example.goliapp.ui.standings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.goliapp.R
 import com.example.goliapp.databinding.ItemStandingRowBinding
 import com.example.goliapp.domain.model.Standing
 
@@ -30,8 +32,21 @@ class StandingsAdapter : ListAdapter<Standing, StandingsAdapter.StandingViewHold
                 tvRank.text = standing.rank.toString()
                 tvTeamName.text = standing.teamName
                 tvPlayed.text = standing.played.toString()
-                tvGoalDiff.text = if (standing.goalDifference >= 0) "+${standing.goalDifference}" else "${standing.goalDifference}"
+                tvGoalDiff.text = if (standing.goalDifference >= 0) {
+                    "+${standing.goalDifference}"
+                } else {
+                    standing.goalDifference.toString()
+                }
                 tvPoints.text = standing.points.toString()
+
+                val barColor = when {
+                    standing.rank <= 4 -> R.color.win_green
+                    standing.rank >= currentList.size - 2 -> R.color.loss_red
+                    else -> R.color.draw_gray
+                }
+                viewPositionBar.setBackgroundColor(
+                    ContextCompat.getColor(root.context, barColor)
+                )
 
                 Glide.with(ivTeamLogo.context)
                     .load(standing.teamLogo)
@@ -43,7 +58,7 @@ class StandingsAdapter : ListAdapter<Standing, StandingsAdapter.StandingViewHold
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Standing>() {
             override fun areItemsTheSame(oldItem: Standing, newItem: Standing) =
-                oldItem.teamName == newItem.teamName
+                oldItem.teamId == newItem.teamId
 
             override fun areContentsTheSame(oldItem: Standing, newItem: Standing) =
                 oldItem == newItem

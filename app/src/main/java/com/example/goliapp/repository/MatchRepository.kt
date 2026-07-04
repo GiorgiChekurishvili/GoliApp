@@ -61,7 +61,7 @@ class MatchRepository @Inject constructor(
         }
     }
 
-    suspend fun getMatchById(matchId: Int): Flow<Resource<Match>> = flow {
+    fun getMatchById(matchId: Int): Flow<Resource<Match>> = flow {
         emit(Resource.Loading)
         try {
             val response = api.getFixtureById(fixtureId = matchId)
