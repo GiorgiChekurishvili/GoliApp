@@ -2,7 +2,7 @@ package com.example.goliapp.utils
 
 object Constants {
     const val BASE_URL = "https://v3.football.api-sports.io/"
-    const val API_KEY = "921d9a5e1f25553443d760a7130af639"
+    const val API_KEY = "f7d357394b1de522ae2c3d0dd4e251eb"
     const val API_HOST = "v3.football.api-sports.io"
 
     const val PREMIER_LEAGUE_ID = 39
@@ -15,7 +15,7 @@ object Constants {
     const val CURRENT_SEASON = 2024
 
     const val DATABASE_NAME = "goli_db"
-    const val DATABASE_VERSION = 1
+    const val DATABASE_VERSION = 2
 
     const val PREFERENCES_NAME = "goli_preferences"
 }
