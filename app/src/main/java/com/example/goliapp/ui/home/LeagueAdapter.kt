@@ -48,6 +48,7 @@ class LeagueAdapter(
                     onLeagueClick(if (league.id == selectedId) null else league)
                 }
             }
+
         }
     }
 

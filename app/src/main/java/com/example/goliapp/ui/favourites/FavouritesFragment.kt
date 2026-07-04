@@ -47,6 +47,9 @@ class FavouritesFragment : Fragment() {
 
         viewModel.favourites.observe(viewLifecycleOwner) { list ->
             favouritesAdapter.submitList(list)
+
+            favouritesAdapter.setFavouriteIds(list.map { it.id }.toSet())
+
             binding.emptyState.root.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
             binding.emptyState.tvEmptyTitle.text = getString(R.string.no_favourites)
             binding.emptyState.tvEmptySubtitle.text = getString(R.string.no_favourites_subtitle)

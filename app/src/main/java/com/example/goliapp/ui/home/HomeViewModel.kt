@@ -25,6 +25,8 @@ class HomeViewModel @Inject constructor(
     private val _matches = MutableLiveData<Resource<List<Match>>>()
     val matches: LiveData<Resource<List<Match>>> = _matches
 
+    private val _favouriteIds = MutableLiveData<Set<Int>>()
+    val favouriteIds: LiveData<Set<Int>> = _favouriteIds
     private val _leagues = MutableLiveData<Resource<List<League>>>()
     val leagues: LiveData<Resource<List<League>>> = _leagues
 
@@ -33,6 +35,7 @@ class HomeViewModel @Inject constructor(
     init {
         loadTodayMatches()
         loadLeagues()
+        loadFavouriteIds()
     }
 
     fun loadTodayMatches() {
@@ -63,6 +66,14 @@ class HomeViewModel @Inject constructor(
             } else {
                 favouritesRepository.addFavourite(match)
             }
+
+            loadFavouriteIds()
+        }
+    }
+    private fun loadFavouriteIds() {
+        viewModelScope.launch {
+            val favourites = favouritesRepository.getAllFavourites().first()
+            _favouriteIds.value = favourites.map { it.id }.toSet()
         }
     }
 }

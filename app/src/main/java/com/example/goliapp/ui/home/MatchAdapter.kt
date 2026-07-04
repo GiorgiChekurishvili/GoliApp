@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.goliapp.R
 import com.example.goliapp.databinding.ItemMatchCardBinding
 import com.example.goliapp.domain.model.Match
 import com.example.goliapp.utils.toMatchTime
@@ -15,6 +16,8 @@ class MatchAdapter(
     private val onMatchClick: (Match) -> Unit,
     private val onFavouriteClick: (Match) -> Unit
 ) : ListAdapter<Match, MatchAdapter.MatchViewHolder>(DIFF_CALLBACK) {
+
+    private var favouriteIds = emptySet<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
         val binding = ItemMatchCardBinding.inflate(
@@ -25,6 +28,10 @@ class MatchAdapter(
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+    fun setFavouriteIds(ids: Set<Int>) {
+        favouriteIds = ids
+        notifyDataSetChanged()
     }
 
     inner class MatchViewHolder(private val binding: ItemMatchCardBinding) :
@@ -67,6 +74,13 @@ class MatchAdapter(
                 Glide.with(ivAwayLogo.context)
                     .load(match.awayTeamLogo)
                     .into(ivAwayLogo)
+
+                btnFavourite.setImageResource(
+                    if (match.id in favouriteIds)
+                        R.drawable.ic_star_filled
+                    else
+                        R.drawable.ic_star_outline
+                )
 
                 root.setOnClickListener { onMatchClick(match) }
                 btnFavourite.setOnClickListener { onFavouriteClick(match) }

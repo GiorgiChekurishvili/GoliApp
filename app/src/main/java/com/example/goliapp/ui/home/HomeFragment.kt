@@ -85,6 +85,10 @@ class HomeFragment : Fragment() {
                 leagueAdapter.submitList(result.data)
             }
         }
+
+        viewModel.favouriteIds.observe(viewLifecycleOwner) { ids ->
+            matchAdapter.setFavouriteIds(ids)
+        }
     }
 
     override fun onDestroyView() {
